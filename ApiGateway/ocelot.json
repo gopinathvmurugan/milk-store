@@ -221,7 +221,7 @@
   ],
 
   "GlobalConfiguration": {
-    "BaseUrl": "https://apigateways-tbw4.onrender.com"
+    "BaseUrl": "https://ommurugamilstore-api.onrender.com"
   }
   //"GlobalConfiguration": {
   //  "BaseUrl": "http://10.210.208.180:7000"
