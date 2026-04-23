@@ -6,7 +6,7 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "authservice.onrender.com",
+          "Host": "authservice-yvxe.onrender.com",
           "Port": 443
         }
       ],
@@ -19,7 +19,7 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "authservice.onrender.com",
+          "Host": "authservice-yvxe.onrender.com",
           "Port": 443
         }
       ],
@@ -185,7 +185,7 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "customerservice.onrender.com",
+          "Host": "milkservice.onrender.com",
           "Port": 443
         }
       ],
@@ -199,7 +199,7 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "supplierservice.onrender.com",
+          "Host": "milkservice.onrender.com",
           "Port": 443
         }
       ],
@@ -211,7 +211,7 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "supplierservice.onrender.com",
+          "Host": "milkservice.onrender.com",
           "Port": 443
         }
       ],
@@ -221,7 +221,7 @@
   ],
 
   "GlobalConfiguration": {
-    "BaseUrl": "https://ommurugamilstore-api.onrender.com"
+    "BaseUrl": "https://apigateways-tbw4.onrender.com"
   }
   //"GlobalConfiguration": {
   //  "BaseUrl": "http://10.210.208.180:7000"
