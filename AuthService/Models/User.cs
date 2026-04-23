@@ -2,7 +2,8 @@
 {
     public class User
     {
-        public Guid Id { get; set; }
+        
+        public Guid Id { get; set; }  // ✅ this is correct
 
         public string Username { get; set; }
 
