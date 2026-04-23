@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using MilkService.Data;
 
 var builder = WebApplication.CreateBuilder(args);
-
+var port = Environment.GetEnvironmentVariable("PORT") ?? "10000";
 // Add services to the container.
 builder.Services.AddDbContext<MilkDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -20,6 +20,7 @@ builder.Services.AddCors(options =>
 
 
 var app = builder.Build();
+app.Urls.Add($"http://*:{port}");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
