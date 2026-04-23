@@ -1,4 +1,4 @@
-using Ocelot.DependencyInjection;
+﻿using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -37,6 +37,10 @@ builder.Configuration.AddJsonFile("ocelot.json", optional: false, reloadOnChange
         });
 });*/
 // ? CORS FIX
+// ✅ ADD THIS
+var port = Environment.GetEnvironmentVariable("PORT") ?? "10000";
+
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
@@ -52,6 +56,7 @@ builder.WebHost.UseUrls(
     "https://localhost:7000" // web access
 );
 var app = builder.Build();
+app.Urls.Add($"http://*:{port}");
 //app.UseCors("AllowReactApp");
 app.UseCors("AllowAll");
 app.UseAuthentication();
