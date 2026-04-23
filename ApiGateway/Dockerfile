@@ -1,12 +1,16 @@
-﻿FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-WORKDIR /src
+﻿FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+WORKDIR /app
+EXPOSE 10000
 
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+WORKDIR /src
 COPY . .
 
-RUN dotnet restore
-RUN dotnet publish ApiGateway/ApiGateway.csproj -c Release -o /app/publish
+# ✅ IMPORTANT: correct path to csproj
+RUN dotnet publish ApiGateway.csproj -c Release -o /app/publish
 
-FROM mcr.microsoft.com/dotnet/aspnet:8.0
+FROM base AS final
 WORKDIR /app
 COPY --from=build /app/publish .
-ENTRYPOINT ["dotnet", "ApiGateway.dll"]
+
+CMD ["dotnet", "ApiGateway.dll"]
