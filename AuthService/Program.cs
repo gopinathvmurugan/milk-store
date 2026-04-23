@@ -42,7 +42,7 @@ builder.Services.AddSwaggerGen();
             policy.WithOrigins("http://localhost:3000"
                                               )
                   .AllowAnyHeader()
-                  .AllowAnyMethod();
+                  .AllowAnyMethod();a
         });
 });*/
 // ✅ CORS FIX
@@ -69,10 +69,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 //app.UseCors("AllowReact");
 app.UseCors("AllowAll");
-app.UseAuthorization();
-
+app.UseAuthentication();   // ✅ FIRST
+app.UseAuthorization();    // ✅ SECOND
 app.MapControllers();
-app.UseAuthentication();
-app.UseAuthorization();
-
 app.Run();
