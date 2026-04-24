@@ -58,6 +58,10 @@ builder.Services.AddCors(options =>
               .AllowAnyMethod();
     });
 });
+builder.Configuration
+    .SetBasePath(Directory.GetCurrentDirectory())
+    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: false)
+    .AddEnvironmentVariables();
 
 var app = builder.Build();
 app.Urls.Add($"http://*:{port}");
