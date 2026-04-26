@@ -3,6 +3,7 @@ using MilkService.Data;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
+AppContext.SetSwitch("System.Net.DisableIPv6", true);
 var key = Encoding.ASCII.GetBytes(builder.Configuration["Jwt:Key"]);
 var port = Environment.GetEnvironmentVariable("PORT") ?? "10000";
 // Add services to the container.
@@ -17,6 +18,7 @@ builder.Services.AddDbContext<MilkDbContext>(options =>
             o.EnableRetryOnFailure();
         }
     ));
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
