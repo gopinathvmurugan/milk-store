@@ -1,11 +1,22 @@
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using MilkService.Data;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
+var key = Encoding.ASCII.GetBytes(builder.Configuration["Jwt:Key"]);
 var port = Environment.GetEnvironmentVariable("PORT") ?? "10000";
 // Add services to the container.
+//builder.Services.AddDbContext<MilkDbContext>(options =>
+//    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddDbContext<MilkDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseNpgsql(
+        builder.Configuration.GetConnectionString("DefaultConnection"),
+        o =>
+        {
+            o.CommandTimeout(60);
+            o.EnableRetryOnFailure();
+        }
+    ));
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -18,7 +29,10 @@ builder.Services.AddCors(options =>
                         .AllowAnyHeader());
 });
 
-
+builder.Configuration
+    .SetBasePath(Directory.GetCurrentDirectory())
+    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: false)
+    .AddEnvironmentVariables();
 var app = builder.Build();
 app.Urls.Add($"http://*:{port}");
 
@@ -29,10 +43,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 app.UseCors("AllowAll");
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
+app.UseCors("AllowAll");
+app.UseAuthentication();   // ✅ FIRST
+app.UseAuthorization();    // ✅ SECOND
 app.MapControllers();
-
 app.Run();
